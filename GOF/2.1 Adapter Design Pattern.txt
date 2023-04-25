@@ -1,0 +1,58 @@
+Mở rộng thêm 1 interface trung gian để kết nối đến một hệ thống và dữ liệu cũ.
+
+class OldData {
+	Name
+	Address
+	Age
+}
+
+IEmployerAdapter {
+	GetEmployer<T>(T oldData);
+}
+
+class OldDataEmployerAdapter : IEmployerAdapter {
+	GetEmployer(OldData data) {
+		return new Employer(data.Name, data.Age, data.Address);
+	}
+}
+
+Để connect với những dữ liệu cũ thì sẽ cần mở rộng bằng một Adapter
+
+Để connect với những hệ thống bên ngoài thì có thể tạo một Adapter giống như một translater
+
+IExtendDataAdapter<PrimaryDataType> {
+	GetFrom<T>(T Data);
+	ConvertTo<T>(PrimaryDataType data);
+}
+
+class MyData {
+	X
+	Y
+}
+
+class Size {
+	Width
+	Height
+}
+
+class Location {
+	X
+	Y
+}
+
+SchoolDataAdapter<MyData> : IExtendDataAdapter {
+	GetFrom(Size size) {
+		return new MyData(size.Width + 100, size.Height + 200);
+	}
+	GetFrom(Location location) {
+		return new MyData(location.X * 2, location.Y * 2);
+	}
+	Size ConvertTo(MyData data) {
+		return new Size(data.X - 100, data.Y - 200);
+	}
+	Location ConvertTo(MyData data) {
+		return new Location(data.X / 2, data.Y / 2);
+	}
+}
+
+

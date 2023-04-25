@@ -1,0 +1,31 @@
+Tạo một abstract class với abstract method làm khuôn
+
+abstract class ProductMaker {
+	public void Build() {
+		GetResources()
+		CreateProduct()
+		CreateWrapper()
+	}
+	
+	public abstract void GetResources()
+	public abstract void CreateProduct()
+	pulbic abstract void CreateWrapper()
+}
+
+public class ChairMaker : ProductMaker {
+	public void GetResources() {
+		Take resources
+	}
+	public void CreateProduct() {
+		Build leg
+		Build seat
+		Build rail
+	}
+	pulbic void CreateWrapper() {
+		Take paper
+		Build wrap
+	}
+}
+
+Sẽ có những hàm tượng trưng và mỗi class dẫn xuất sẽ thực hiện logic của hàm đó
+

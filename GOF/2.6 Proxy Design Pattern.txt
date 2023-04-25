@@ -1,0 +1,67 @@
+Người đại diện, đối đượng đại diện cho một đối tượng khác
+
+Giống y như Bridge về nhận lệnh và truyền lệnh
+Người đại diện thì có nhiều quyền hơn là có thể deny, log
+
+IBankProxy {
+	Deposit(guid, int);
+	WithDraw(guid, int);
+}
+
+BankProxy : IBankProxy {
+	Bank
+	Logger
+	
+	Deposit(guid, int) {
+		user = Bank.User(guid);
+		user.Increment(int);
+		Logger.Log(Deposit, guid, int);
+	}
+	
+	WithDraw(guid, int) {
+		user = Bank.User(guid);
+		current = user.GetCurrent();
+		if (current > int) {
+			user.Decrement(int);
+			Logger.Log(WithDraw, guid, int);
+		}
+	}
+}
+
+Bank proxy sẽ kiểm tra user, tăng giảm, và log thông tin lại
+
+
+IWebProxy {
+	Response Request(header, body);
+}
+
+WebProxy : IWebProxy {
+	Cache
+	CDN
+	Authenticator
+	Server
+	
+	Response Request(header, body) {
+		var isAuthen = Authenticator.IsAuthen(header.Authenticate);
+		var isCaching = Cache.Include(header.url);
+		var isCDN = CDN.Include(header.url);
+		var isRequestAuthenticate = Server.Resource(header.url).RequestAuthenticate();
+		
+		if (isRequestAuthenticate && isAuthen) {
+			if (isCaching) {
+				return Cache.Get(header.url);
+			} else {
+				var resouce = Server.Send(header, body);
+				return resouce;
+			}
+		}
+		return NotAuthenticated;
+	}
+}
+
+Web proxy sẽ kiểm tra nếu request valid thì sẽ lấy dữ liệu từ server
+
+
+
+Có thể dùng trong trường hợp trang chủ thì proxy chỉ trả về kích thước thu nhỏ của ảnh
+Khi click vào xem ảnh thì mới tải về kích thước thật

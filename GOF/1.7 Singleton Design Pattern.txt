@@ -1,0 +1,83 @@
+Sử dụng một instance cố định cho tất cả các lượt sử dụng và thao tác.
+
+Dạng truyền thống không an toàn cho multi-thread
+
+public sealed class Singleton {
+	private static Singleton instance = null;
+	public static Singleton GetInstance() {
+		if (instance == null) instance = new Singleton();
+		return instance;
+	}
+	private Singleton(){}
+}
+
+Sử dụng cho những class mà giữ nhiều thời gian chạy, đồng thời được sử dụng lặp lại nhiều lần.
+như Service Proxies.
+Database connection kết nối db.
+Log.
+Data bus, chia sẻ dữ liệu dùng chung.
+Caching.
+
+
+
+Để không tạo được một class con bên trong class singleton
+thì cần sử dụng từ khóa sealed class
+
+
+
+
+tạo một singleton an toàn với lock
+
+public sealed class Singleton {
+	private static Singleton instance = null;
+	private static readonly object locker = new Object();
+	public static Singleton GetInstance() {
+		lock (locker) {
+			if (instance == null) instance = new Singleton();
+		}
+		
+		return instance;
+	}
+}
+
+
+nó sẽ làm block function tại thời điểm chờ release lock
+cải tiến bằng double check
+
+public sealed class Singleton {
+	public static Singleton GetInstance() {
+		if (instance == null) {
+			lock(locker) {
+				if (instance == null) instance = new Singleton();
+			}
+		}
+		
+		return instance();
+	}
+}
+
+
+
+khởi tạo bởi CLR
+private static Singleton instance = new Singleton();
+
+khi đó instance sẽ được khởi tạo bởi runtime và có sẵn để sử dụng
+mà không cần phải khởi tạo thủ công
+
+
+
+sử dụng Lazy để khởi tạo tại thời điểm sử dụng đầu tiên
+private static readonly Lazy<Singleton> instance = new Lazy<Singleton>(() => new Singleton());
+
+
+
+
+
+
+điểm khác biệt giữa static và singleton là
+static không thể làm parameter của một hàm, singleton thì có
+static là ở mức app domain, singleton là ở mức app lifecycle
+
+
+
+

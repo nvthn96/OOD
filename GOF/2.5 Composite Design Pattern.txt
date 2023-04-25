@@ -1,0 +1,62 @@
+Pattern item và container, hoặc là pattern lá và cành.
+Hoặc kết hợp lại là Node.
+
+IItem {
+	Name
+	Properties
+	
+	Method();
+}
+
+IContainer {
+	IItem[] Items;
+	
+	Action();
+}
+
+INode {
+	Name
+	Price
+	INode[] Nodes
+	
+	virtual AllPrices = Price + Nodes.Sum(x => x.AllPrices)
+}
+
+Khi đó container sẽ chứa nhiều item, node sẽ chứa nhiều node bên trong
+
+RAM : INode {
+	Name = RAM
+	Price = 100
+}
+
+RAMComponent : INode {
+	Name = RAM Component
+	Price = 10
+	INode[] Nodes = [RAM, RAM, RAM, RAM]
+}
+
+CPU : INode {
+	Name = CPU
+	Price = 500
+}
+
+Motherboard : INode {
+	Name = Motherboard
+	Price = 20
+	INode[] Nodes = [CPU, RAMComponent]
+}
+
+Sound : INode {
+	Name = Sound
+	Price = 20
+}
+
+Computer : INode {
+	Name = Computer
+	INode[] = [Motherboard, Sound]
+}
+
+Khi đó Computer.AllPrices() sẽ là tổng của các thành phần tạo lên computer
+
+Có thể sử dụng cho hệ thống file system
+

@@ -1,0 +1,31 @@
+Cấu tạo từng thành phần của 1 đối tượng
+
+Có một cái khung mặc định là không có gì
+sau đó ghép các thành phần cần thiết vào
+
+IBook {
+	GetCover();
+	GetPage(PageNumber);
+	GetDescription();
+	GetRating();
+}
+
+IBookBuilder {
+	IBookBuilder SetCover();
+	IBookBuilder SetPageNumber();
+	IBookBuilder SetDescription();
+	IBookBuilder SetContent(PageNumber, Content);
+	IBookBuilder SetRating(rate);
+	IBook Build();
+}
+
+NoteBookBuilder : IBookBuilder {
+
+}
+
+DrawBookBuilder : IBookBuilder {
+
+}
+
+
+sử dụng khi muốn đi sâu vào tạo chi tiết từng thành phần

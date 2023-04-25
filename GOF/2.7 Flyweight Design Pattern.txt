@@ -1,0 +1,54 @@
+Những đặc điểm chung sẽ link đến một đối tượng sử dụng chung
+
+Kết hợp Prototype + Factory = Flyweight
+Có thể dùng kiểu Prototype + Decorator
+
+IProduct {
+	TurnOn();
+	TurnOff();
+	Toggle();
+}
+
+Led : IProduct {
+	Color White
+	
+	TurnOn() {}
+	TurnOff() {}
+	Toggle() {}
+}
+
+LedFactory {
+	Cache
+	
+	GetLed(type) {
+		baseLed = Cache.Get("Led").Clone();
+		newLed = type switch {
+			Red => baseLed.Color = Red; return baseLed;
+			Yellow => baseLed.Color = Yellow; return baseLed;
+			_ => return baseLed;
+		}
+	}
+}
+
+Giảm thời gian khởi tạo một đèn Led
+
+LedDecorator : IProduct {
+	Cache
+	
+	GetLed(type, value) {
+		baseLed = Cache.Get("Led").Clone();
+		newLed = type switch {
+			Color => return LedWithColor(value.ToString());
+		}
+	}
+}
+
+LedWithColor : IProduct {
+	Led
+	
+	constructor(Color) {
+		Led.Color = Color;
+	}
+}
+
+khi đó có thể bổ sung thêm cho các thuộc tính hoặc hàm bằng decorator

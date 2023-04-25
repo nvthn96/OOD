@@ -1,0 +1,30 @@
+Tạo ra những class giống nhau về chức năng
+khác nhau về thể loại
+
+Vở viết
+Vở vẽ
+Cuốn sổ
+
+chức năng:
+lưu thông tin
+mở 1 trang
+ghi nội dung
+
+thể loại:
+vở viết: thông tin dạng ký tự
+vở vẽ: thông tin dạng vector
+cuốn sổ: thông tin dạng biểu đồ, bảng
+
+
+
+BookFactory {
+	GetBook(string type) {
+		var book = type switch {
+			vở viết => new NoteBook();
+			vở vẽ => new PaintBook();
+			_ => new Pages();
+		}
+	}
+}
+
+sử dụng khi có những class cũng chức năng và nhưng khác về thể loại

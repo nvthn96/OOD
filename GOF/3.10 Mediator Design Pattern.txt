@@ -1,0 +1,54 @@
+Giao tiếp tập trung qua một điểm trung gian
+
+Nhiều kết nối đến 1 điểm trung gian thay vì tự kết nối đến những điểm khác
+
+IMediator {
+	NumberOfConnections
+	Connections[]
+	
+	SendMessage(connectionId, msg)
+	AddConnection(connection)
+	RemoveConnection(connectionId)
+}
+
+GroupMediator {
+	NumberOfConnections
+	Connections[]
+	
+	SendMessage(connectionId, msg) {
+		connection = Connections.Get(connectionId)
+		connection.Send(msg)
+	}
+	AddConnection(connection) {
+		if (Connections.NotFound(connection.Id)) {
+			Connections.Add(connection)
+		}
+	}
+	RemoveConnection(connectionId) {
+		if (Connections.Found(connectionId)) {
+			Connections.Remove(connectionId)
+		}
+	}
+}
+
+Connection {
+	GroupMediator
+	constructor(GroupMediator) {
+		this.GroupMediator = GroupMediator
+		this.GroupMediator.AddConnection(this)
+	}
+	SendMessage(connectionId, msg) {
+		GroupMediator.SendMessage(connectionId, msg)
+	}
+}
+
+group1 = new GroupMediator()
+user1 = new Connection(group1)
+user2 = new Connection(group1)
+user3 = new Connection(group1)
+
+user2.SendMessage(user1.Id, "Hello 1")
+user2.SendMessage(user3.Id, "Hello 3")
+
+Khi đó các user sẽ gửi nhận message thông qua group mediator
+

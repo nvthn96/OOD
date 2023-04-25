@@ -1,0 +1,111 @@
+Mỗi state khác nhau sẽ làm những hành động khác nhau
+
+EProcessState {
+	Initial
+	ReadConfig
+	TestComponent
+	TestFunction
+	Complete
+}
+
+Machine {
+	EProcessState
+	
+	Startup() {
+		EProcessState = Initial
+		switch (EProcessState) {
+			case Initial:
+				Open all file
+				EProcessState = ReadConfig
+				break
+			case ReadConfig:
+				Read config from file
+				EProcessState = TestComponent
+				break
+			case TestComponent:
+				Test all components
+				break
+			case TestFunction:
+				Test all functions
+				break
+			case Complete:
+				Logger.Log(Completed)
+				break
+		}
+	}
+}
+
+Trạng thái của tiến trình giúp cho hệ thống tracking tiến độ.
+
+
+
+Trạng thái mà máy tự thay đổi
+
+IState {
+	Operation(Data)
+	Display()
+}
+
+OfflineState : IState {
+	Operation(Data) {
+		
+	}
+	Display() {
+		Offline State
+	}
+}
+
+InitialState : IState {
+	Operation(Data) {
+		Open and read file
+		Read config
+		Test components
+	}
+	Display() {
+		Initial State
+	}
+}
+
+RunningState : IState {
+	Operation(Data) {
+		Read data and action
+	}
+	Display() {
+		Running State
+	}
+}
+
+FinishState : IState {
+	Operation(Data) {
+		Reset components
+	}
+	Display() {
+		Finish State
+	}
+}
+
+MachineContext {
+	IState State = new OfflineState()
+	
+	OnStartupClick() {
+		State = new InitialState()
+		State.Operation()
+	}
+	
+	OnRunClick() {
+		State = new RunningState()
+		State.Operation()
+		
+		State = new FinishState()
+		State.Operation()
+	}
+	
+	UpdateStatus() {
+		State.Display()
+	}
+}
+
+Khi đó máy sẽ chỉ có một state
+State là độc lập và thêm mới một state là không ảnh hưởng
+
+

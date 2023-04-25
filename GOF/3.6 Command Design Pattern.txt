@@ -1,0 +1,67 @@
+Gom các thao tác trên đối tượng
+Hỗ trợ undo, redo, rollback
+
+ICommand {
+	Execute()
+	Redo()
+}
+
+OpenFile : ICommand {
+	Document
+
+	Execute() {
+		Document.OpenFileDialog()
+	}
+	
+	Redo() {
+		Document.CloseFile()
+	}
+}
+
+OpenSearchDialog : ICommand {
+	Document
+	
+	Execute() {
+		Document.OpenSearchDialog()
+	}
+	
+	Redo() {
+		Document.CloseSearchDialog()
+	}
+}
+
+ChangeTheme : ICommand {
+	Document
+	PreviousTheme
+	
+	Execute() {
+		Document.OpenThemes()
+	}
+	
+	Redo() {
+		Document.ApplyTheme(PreviousTheme)
+	}
+}
+
+Document {}
+
+Invoker {
+	ICommand OpenFile(Document)
+	ICommand OpenSearchDialog(Document)
+	ICommand ChangeTheme(Document)
+	
+	OnMenuOpenFileClick() {
+		OpenFile.Execute()
+	}
+	
+	OnSearchHotkey() {
+		OpenSearchDialog.Execute()
+	}
+	
+	OnMenuChangeTheme() {
+		ChangeTheme.Execute()
+	}
+}
+
+Invoker sẽ chạy command tùy theo trigger từ menu hoặc hotkey
+Đối tượng nhận command có thể là Document, hoặc một đối tượng khác

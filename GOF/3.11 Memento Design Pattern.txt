@@ -1,0 +1,36 @@
+Lưu lại những trạng thái trước đó để có thể quay trở lại
+
+Memento {
+	Data
+}
+
+CareTaker {
+	Mementos[]
+	
+	AddMemento(Memento) {
+		Mementos.Add(Memento)
+	}
+	
+	GetMemento(Index) {
+		return Mementos[Index]
+	}
+}
+
+ClassObject {
+	Data
+	CareTaker
+	
+	SaveMemento() {
+		CareTaker.AddMemento(Data.Clone())
+	}
+	
+	SetMemento(Index) {
+		Data = CareTaker.GetMemento(Index)
+	}
+}
+
+Gồm có Memento để lưu data
+CareTaker để lưu danh sách Memento
+
+Sau đó class object để thao tác với care taker
+Lưu và redo lại data

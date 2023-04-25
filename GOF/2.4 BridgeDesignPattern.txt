@@ -1,0 +1,50 @@
+Sử dụng một interface làm cầu nối để thao tác với 1 Interface bên trong
+
+ITarget {
+	TurnLeft();
+	TurnRight();
+	TurnAround();
+}
+
+IBridge {
+	ITarget target;
+	ReadCommand(int);
+}
+
+Robot : ITarget {
+	TurnLeft() { Rotate(-90); }
+	TurnRight() { Rotage(90); }
+	TurnAround() { Rotate(180); }
+}
+
+Tivi : ITarget {
+	TurnLeft() { NextChannel(); }
+	TurnRight() { PreviousChannel(); }
+	TurnAround() { ToggleOnOff(); }
+}
+
+Remote : IBridge {
+	ITarget target;
+	RunCommand(int command) {
+		command switch {
+			1 => target.TurnLeft();
+			2 => target.TurnRight();
+			_ => target.TurnAround();
+		}
+	}
+}
+
+ARobot = new Robot();
+ARemote = new Remote(ARobot);
+
+ARemote.RunCommand(1);
+ARemote.RunCommand(0);
+
+ATiviRemote = new Remote(new Tivi());
+ATiviRemote.RunCommand(2);
+
+
+
+Ngoài điều khiển từ xa thì có thể là Send message bằng Email hoặc Sms
+
+Có thể kết hợp Factory để trả về một Bridge tương ứng

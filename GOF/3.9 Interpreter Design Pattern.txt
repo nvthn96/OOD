@@ -1,0 +1,64 @@
+Chuyển đổi dữ liệu sang một cấu trúc dữ liệu khác
+
+Dựa trên một expression
+
+
+Context {
+	Data
+	Expression
+}
+
+
+IExpression {
+	 Evaluate(Context)
+}
+
+MathExpression : IExpression {
+	Evaluate(Context) {
+		words = Context.Data.split(" ")
+		number1 = words[0]
+		operator = words[1]
+		number2 = words[2]
+		
+		result = operator switch {
+			"+" => number1 + number2
+			"-" => number1 - number2
+			"*" => number1 * number2
+			"/" => number1 / number2
+			_ => 0
+		}
+	}
+}
+
+Thực hiện phép tính +-*/ với 2 số
+
+context1 = new Context {
+	Data = "34 + 56"
+}
+
+mathExpression = new MathExpression()
+result = mathExpression.Evaluate(context1)
+result == 90
+
+
+DateExpression : IExpression {
+	Evaluate(Context) {
+		date = Context.Data
+		output = Context.Expression
+		output.Replace("DD", date.Date.ToString())
+		output.Replace("MM", date.Month.ToString())
+		output.Replace("YYYY", date.Year.ToString())
+		return output
+	}
+}
+
+context2 = new Context {
+	Data = new Date(2023, 04, 12)
+	Expression = "DD-MM-YYYY"
+}
+
+dateExpression = new DateExpression()
+result2 = dateExpression.Evaluate(context2)
+result2 = "12-04-2023"
+
+Thực hiện expression theo data khác

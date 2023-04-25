@@ -1,0 +1,29 @@
+Tạo ra một bản copy từ một object trước đó.
+
+Vì object có thể là một Interface, Abstract class
+nên copy những thông tin gì là phụ thuộc vào lớp dẫn xuất của Interface và Abstract class
+
+
+Abstract class Product {
+	Name
+	Price
+	CopyObject
+}
+
+Book : Product {
+	Product CopyObject
+}
+
+Phone : Product {
+	Product CopyObject
+}
+
+sử dụng khi muốn copy 1 đối tượng mà không biết đối tượng gốc của nó là gì
+hoặc không có thông tin để tạo mới
+thay vì tạo mới object từ đầu thì sẽ clone một cái mẫu có sẵn
+
+mẫu có sẵn có chứa những thông tin riêng
+một objec mới thì chỉ có thể clone từ mẫu có sẵn này
+
+
+

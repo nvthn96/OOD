@@ -1,0 +1,32 @@
+Trả về các factory dựa trên một tính chất
+
+Như các tenant khác nhau, các năm khác nhau, các thời điểm khác nhau
+các chu kỳ khác nhau, các mùa khác nhau
+
+phân chia theo các giai đoạn, thể loại riêng
+
+IProductFactory {
+	Run(Features.Name);
+	Charge();
+	Repair();
+	Update();
+}
+
+CarFactory: IProductFactory {
+	
+{
+
+BikeFactory: IProductFactory {
+	
+}
+
+
+IProductFactory GetProduct(Activity.Name) {
+	Work => CarFactory;
+	Health => BikeFactory;
+}
+
+
+
+sử dụng để tạo ra theo những mục đích và giai đoạn khác nhau
+

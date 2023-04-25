@@ -1,0 +1,43 @@
+Để một đối tượng khác thao tác với các dữ liệu bên trong
+
+IVisitor {
+	Visit<T>(T)
+}
+
+Doctor : IVisitor {
+	Visit(Student) {
+		Log(Doctor visit a Student)
+	}
+	Visit(Singer) {
+		Log(Doctor visit a Singer)
+	}
+}
+
+IElement {
+	Accept<T>(T)
+}
+
+Student : IElement {
+	private Head
+	private Body
+	private Leg
+
+	Accept(Doctor) {
+		Doctor.Visit(Head)
+		Doctor.Visit(Body)
+		Doctor.Visit(Leg)
+	}
+}
+
+School {
+	private Students[]
+	
+	Operate(Doctor) {
+		foreach (Student in Students) {
+			Student.Accept(Doctor)
+		}
+	}
+}
+
+Khi đó bác sĩ sẽ thăm khám cho các học sinh.
+Và có thể kiểm tra cả những dữ liệu private.

@@ -1,0 +1,84 @@
+Lựa chọn chiến lược dựa trên điều kiện thực tế
+
+Cần một thuật toán để chọn chiến lược phù hợp
+
+ITraveler {
+	Test(distance)
+	Take()
+}
+
+Car : ITraveler {
+	Test() {
+		return {
+			Cost = 50 * distance
+			Time = distance / 60
+		}
+	}
+	Take() {
+		Moving by car
+	}
+}
+
+Airplane : ITraveler {
+	Test() {
+		return {
+			Cost = 20 * distance
+			Time = distance / 400
+		}
+	}
+	Take() {
+		Moving by air
+	}
+}
+
+Train : ITraveler {
+	Test() {
+		return {
+			Cost = 10 * distance
+			Time = distance / 20
+		}
+	}
+	Take() {
+		Moving by train
+	}
+}
+
+
+Có 3 chiến lược di chuyển là ô tô, máy bay và tàu hỏa
+Ô tô đi 60Km/h và tốn 50đ/km
+Máy bay đi 400Km/h và tốn 20đ/km
+Tàu hỏa đi 20Km/h và tốn 10đ/km
+
+Sẽ cần những điểm di chuyển, số tiền còn lại để chọn phương tiện phù hợp
+
+Scheduler {
+	Strategies[]
+	
+	GetTraveler(Point1, Point2) {
+		distance = Point2 - Point1
+		if (distance >= 500) calcFunc = (cost, time) => cost * 20 + time * 100
+		else if (distance >= 200) calcFunc = (cost, time) => cost * 50 + time * 50
+		else calcFunc = (cost, time) => cost * 100 + time * 20
+		
+		best = 0
+		strategy
+		foreach (vehicle in Strategies) {
+			var point = calcFunc.Apply(vehicle.Test(distance))
+			if (best < point) strategy = vehicle
+		}
+		
+		return strategy
+	}
+}
+
+Như vậy đi từ PointA -> PointB sẽ dùng máy bay
+Đi từ PointB -> PointC sẽ dùng tàu hỏa
+Đi từ PointC -> PointD sẽ dùng ô tô
+
+Cài đặt các chiến lược đơn giản là cài đặt một class dẫn xuất
+quan trọng là thuật toán để chọn ra chiến lược
+
+hoặc có thể để các chiến lược nhận input và cho ra các kết quả
+sau đó chọn 1 kết quả tối ưu
+
+

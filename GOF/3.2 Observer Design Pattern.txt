@@ -1,0 +1,87 @@
+Khi một object thay đổi trạng thái thì các object phụ thuộc cũng thay đổi theo tự động
+
+Tên gọi khác là Producer-Customer, Publish-Subscribe
+
+Gồm có Object: Publishers, khi thay đổi xảy ra thì sẽ thông báo đến tất cả các Observers, subscribers.
+
+Observer: Đăng ký theo dõi thay đổi từ object.
+
+IPublisher {
+	AddSubscriber(User)
+	RemoveSubScriber(User)
+	NotifySubscriber()
+	
+	Update()
+}
+
+ISubscriber {
+	AddPublisher(Publisher)
+	RemovePublisher(Publisher)
+	
+	GetUpdate(Publisher)
+}
+
+Store : IPublisher {
+	Users[]
+	
+	AddSubscriber(User) {
+		if (Users.NotFound(User)) {
+			Users.Add(User)
+			User.AddPublisher(this)
+		}
+	}
+	RemoveSubScriber(User) {
+		if (Users.Found(User)) {
+			Users.Remove(User)
+			User.RemovePublisher(this)
+		}
+	}
+	NotifySubscriber() {
+		Users.ForEach(User => User.GetUpdate(this));
+	}
+	
+	Update() {
+		NotifySubscriber()
+	}
+}
+
+Store sẽ lưu danh sách Users, khi có update thì sẽ gọi hàm notify thông tin đến Users
+
+User : ISubscriber {
+	Publishers[]
+
+	AddPublisher(Publisher){
+		if (Publishers.NotFound(Publisher)) {
+			Publishers.Add(Publisher)
+			Publisher.AddSubscriber(this)
+		}
+	}
+	RemovePublisher(Publisher) {
+		if (Publishers.Found(Publisher)) {
+			Publishers.Remove(Publisher)
+			Publisher.Remove(this)
+		}
+	}
+	
+	GetUpdate(Publisher) {
+		ReceiveUpdateFrom(Publisher)
+	}
+}
+
+Users sẽ lưu danh sách publisher và nhận thông báo khi publisher gửi notify
+
+
+MyStore = new Store()
+
+User1 = new User(1)
+User2 = new User(2)
+
+MyStore.AddSubscriber(User1)
+MyStore.AddSubscriber(User2)
+
+hoặc
+
+User1.AddPublisher(MyStore)
+User2.AddPublisher(MyStore)
+
+để sử dụng thì sẽ dùng MyStore.Update()

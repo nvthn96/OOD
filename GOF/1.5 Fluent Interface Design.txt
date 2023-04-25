@@ -1,0 +1,27 @@
+Tạo một object theo từng chi tiết bằng một cách liên tiếp
+
+IBook {
+	
+}
+
+IFluentBook {
+	IFluentBook BuildCover();
+	IFluentBook BuildDescription();
+	IFluentBook BuildContent();
+	IFluentBook BuildRating();
+}
+
+FluentNoteBook : IFluentBook {
+
+}
+
+FluentDrawBook : IFluentBook {
+
+}
+
+sử dụng khi muốn tạo ra một đối tượng một cách mượt mà
+giúp chia nhỏ việc tạo đối tượng
+tạo ra sự rành mạch và dễ hiểu về mặt maintain
+giúp duy trì và phát triển ứng dụng một cách dễ dàng hơn
+
+

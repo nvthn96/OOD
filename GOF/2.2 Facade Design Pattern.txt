@@ -1,0 +1,40 @@
+Tạo ra một giao tiếp đơn giản về mặt người dùng
+
+IOrder {
+	Create(OrderDetail);
+	Get();
+}
+
+IPayment {
+	Create(PaymentDetail);
+	Get();
+}
+
+IAssetManagement {
+	UpdateProduct(Product, AssetInfo);
+	GetProduct(ProductId);
+}
+
+IInvoice {
+	Create(InvoiceDetail);
+	Print(InvoiceId);
+}
+
+Khi đó sẽ tạo ra một Facade là
+
+IApp {
+	CreateOrder(OrderInformation);
+	GetCart(UserInformation);
+	GetProducts();
+}
+
+IAppManagement {
+	Report();
+	DisplayAssets();
+}
+
+Tạo một giao tiếp tùy theo mục đích sử dụng
+Tùy theo người sử dụng mà sẽ có những giao tiếp khác
+
+Dùng để chuyển giao một interface cho một vendor khác sử dụng
+Khi đó vendor khác sẽ chỉ thao tác trên các giao tiếp mà vendor đó biết

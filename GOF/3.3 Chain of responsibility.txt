@@ -1,0 +1,91 @@
+Cài đặt một chuỗi các xử lý liên tiếp
+
+IHandler {
+	AddHandler(IHandler)
+	Process(Data)
+	Next()
+}
+
+
+abstract class AHandler : IHandler {
+	IHandler nextHandler
+	
+	AddHandler(IHandler handler) {
+		nextHandler = handler
+	}
+	
+	Process()
+	Next() {
+		if (nextHandler != null) {
+			nextHandler.Process(Data)
+		}
+	}
+}
+
+Interface gồm có Process và Next
+Abstract class gồm có 1 handler tiếp theo, implement mặc định cho hàm Next
+
+
+LoginHandler : AHandler {
+	Process(Data) {
+		if (!ValidAuthen(Data)) {
+			Return UnAuthentication()
+		}
+		Next(Data)
+	}
+}
+
+LogHandler : AHandler {
+	Process(Data) {
+		Logger.Log(Data.Request)
+		
+		Next(Data)
+		
+		Logger.Log(Data.Response)
+	}
+}
+
+AddressHandler : AHandler {
+	Process(Data) {
+		Data.Header.Key = SecretKey
+		Data.Header.Allow = Admin
+		
+		Next(Data)
+	}
+}
+
+Server {
+	IHandler firstHandler
+	IHandler lastHandler
+	
+	AddHandler(IHandler handler) {
+		if (firstHandler == null) {
+			firstHandler = handler
+			lastHandler = handler
+		} else {
+			lastHandler.AddHandler(handler)
+			lastHandler = handler
+		}
+	}
+	
+	Process(Request) {
+		if (firstHandler != null) {
+			firstHandler.Process(Request)
+		}
+		
+		GetResource(Request)
+	}
+}
+
+Server sẽ gồm có first và last handler
+Khi có request thì sẽ cho handler xử lý
+
+
+WebServer = new Server()
+request = new Request() {
+	Url: "/products"
+	Method: "GET"
+}
+
+WebServer.Process(request)
+

@@ -1,0 +1,80 @@
+Duyệt liên tiếp các object
+
+IIterator {
+	Current()
+	Next()
+	HasNext()
+}
+
+IIterable {
+	IIterator GetIterator()
+}
+
+ICollection<T> : IIterable {
+	Add(T)
+	Remove(int)
+	GetIterator()
+}
+
+DataIterator : IIterator {
+	Data[]
+	Index = 0
+	
+	constructor(Data[]) {
+		this.Data = Data
+	}
+	
+	Current() {
+		return Data[Index]
+	}
+	
+	Next() {
+		if (HasNext()) {
+			Index++
+			return Data[Index]
+		} else {
+			return null
+		}
+	}
+	
+	HasNext() {
+		return Index < Data.Length;
+	}
+}
+
+DataCollection : ICollection {
+	Data[]
+	Add(T) {
+		Data.Add(T)
+	}
+	Remove(int) {
+		Data.Remove(int)
+	}
+	GetIterator() {
+		return new DataIterator(Data)
+	}
+}
+
+Sau đó có thể duyệt qua collection bằng for hoặc white
+
+class Employee
+
+list = new DataCollection<Employee>();
+list.Add(new Employee(1));
+list.Add(new Employee(2));
+list.Add(new Employee(3));
+
+IIterator iterator = list.GetIterator();
+
+for (var item = iterator.Current(); iterator.HasNext(); item = iterator.Next()) {
+	Display(item)
+}
+
+
+IIterator iterator2 = list.GetIterator();
+
+while (iterator2.HasNext()) {
+	var item = iterator2.Current();
+	Dipslay(item)
+	iterator2.Next()
+}

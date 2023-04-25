@@ -1,0 +1,17 @@
+Mở rộng hơn của Factory Design Pattern
+
+Thay vì trả về luôn đối tượng
+thì sẽ tạo ra đối tượng trả về dựa trên một số thuộc tính hoặc tính chất
+Thêm các tính chất rồi sẽ trả về một đối tượng phù hợp với tính chất đó
+
+
+
+BookFactory {
+	IBook GetNewBook(Action.Write) => return NoteBook;
+	IBook GetNewBook(Action.Draw) => return DrawBook;
+}
+
+
+Sử dụng khi không quan tâm đến thể loại trả về.
+mà quan tâm đến cái hoạt động của cái trả về.
+

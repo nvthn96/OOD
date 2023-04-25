@@ -1,0 +1,55 @@
+Mở rộng một object bằng cách wrapper và thêm các custom change
+
+IHouse {
+	Build();
+}
+
+Mở rộng bằng một class con
+
+House : IHouse {
+	Build() {
+		CreateWall();
+		CreateDoor();
+	}
+}
+
+HouseChangeColor : IHouse {
+	private IHouse house;
+	Build() {
+		house.Build();
+		ChangeColor();
+	}
+}
+
+HouseAddFlat : IHouse {
+	private IHouse house;
+	Build() {
+		house.Build();
+		AddNewFlat();
+	}
+}
+
+HouseForStudent : IHouse {
+	private IHouse house;
+	Build() {
+		house.Build();
+		RepairWall();
+		RepairAssets();
+	}
+}
+
+HouseForArtist : IHouse {
+	private IHouse house;
+	Build() {
+		house.Build();
+		PrintPicture();
+		DecorAssets();
+	}
+}
+
+Khi đó có thể mix các thể loại nhà với nhau
+
+IHouse defaultHouse = new House();
+IHouse houseForStudent = new HouseForStudent(defaultHouse);
+IHouse houseForStudentArtist = new HouseForArtist(houseForStudent);
+IHouse houseForStudentWithColor = new HouseChangeColor(houseForStudent);
