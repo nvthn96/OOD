@@ -1,0 +1,19 @@
+Class con phải có hành vi giống class cha.
+
+Nếu có 2 class là
+class Duck: hàm Move để bơi
+class DuckToy extends Duck: hàm Move để đi trên mặt đất
+
+Nếu sử dụng Duck = new DuckToy() thì sẽ vi phạm vì hành vi đi trên mặt đất không giống hành vi bơi.
+
+Như vậy, cần tạo ra 1 interface
+IDuck: Move
+
+Sau đó tạo 2 class Duck và DuckToy thực hiện interface này
+class Duck implement IDuck
+class DuckToy implement IDuck
+
+Khi đó, việc sử dụng là
+IDuck = new Duck()
+IDuck = new DuckToy()
+thì sẽ thỏa mãn nguyên tắc này.

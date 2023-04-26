@@ -1,0 +1,23 @@
+Lớp high-level không phụ thuộc vào lớp lown-level.
+
+Ví dụ class Invoice với hàm SendMessage là {
+	SMS.Send(message);
+}
+
+class SMS
+class Email
+
+Như vậy, class Invoice đã bị phụ thuộc vào 1 class khác là NotifyBySMS.
+Nếu muốn sử dụng bằng NotifyByEmail thì sẽ phải thay đổi source code.
+
+Để giải quyết điều này là thì sẽ cần tạo ra 1 interface là
+IMessager : Send
+
+class SMS : IMessager
+class Email : IMessager
+
+Khi đó class Invoice sẽ có hàm SetMessager(IMessager), và hàm Notify sẽ là {
+	IMessager.Send(message)
+}
+
+Như vậy khi cần thêm một kiểu thông báo khác bằng Phone thì sẽ không thay đổi source code đã có.

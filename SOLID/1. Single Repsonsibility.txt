@@ -1,0 +1,8 @@
+Mỗi class chỉ lên có 1 lý do duy nhất để thay đổi.
+
+Class Invoice với methods là: AddInvoice, DeleteInvoice, SendEmail
+
+Thì class trên đã vi phạm nguyên tắc, cần tách ra thành 2 class là
+
+Class Invoice: AddInvoice, DeleteInvoice
+Class Email: SendEmail
