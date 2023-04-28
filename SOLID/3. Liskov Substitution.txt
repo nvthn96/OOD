@@ -4,7 +4,8 @@ Nếu có 2 class là
 class Duck: hàm Move để bơi
 class DuckToy extends Duck: hàm Move để đi trên mặt đất
 
-Nếu sử dụng Duck = new DuckToy() thì sẽ vi phạm vì hành vi đi trên mặt đất không giống hành vi bơi.
+Nếu sử dụng Duck = new DuckToy() thì sẽ vi phạm nguyên tắc,
+vì hành vi đi trên mặt đất không giống hành vi bơi.
 
 Như vậy, cần tạo ra 1 interface
 IDuck: Move
@@ -16,4 +17,4 @@ class DuckToy implement IDuck
 Khi đó, việc sử dụng là
 IDuck = new Duck()
 IDuck = new DuckToy()
-thì sẽ thỏa mãn nguyên tắc này.
+thì sẽ thỏa mãn yêu cầu.

@@ -2,8 +2,8 @@ Các class, function lên đóng cho việc chỉnh sửa, và mở cho việc m
 
 Với class Student: hàm là CalcFee
 
-Khi có 1 kiểu học sinh mới là học sinh ngoại quốc thì sẽ không thay đổi hàm CalcFee,
-mà sẽ tạo ra 1 class mới là
+Khi có 1 kiểu học sinh mới là học sinh ngoại quốc thì sẽ không nên thay đổi hàm CalcFee,
+thay vào đó là tạo ra 1 class mới
 class ForeignStudent extend Student, sau đó ghi đè hàm tính CalcFee
 
-Như vậy class Student, và hàm CalcFee ban đầu sẽ không cần phải thay đổi gì.
+Như vậy class Student, và hàm CalcFee ban đầu sẽ không thay đổi.

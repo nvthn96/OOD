@@ -7,8 +7,8 @@ Ví dụ class Invoice với hàm SendMessage là {
 class SMS
 class Email
 
-Như vậy, class Invoice đã bị phụ thuộc vào 1 class khác là NotifyBySMS.
-Nếu muốn sử dụng bằng NotifyByEmail thì sẽ phải thay đổi source code.
+Như vậy, class Invoice đã bị phụ thuộc vào 1 class khác là SMS.
+Nếu muốn sử dụng bằng Email thì sẽ phải thay đổi từ SMS sang Email trong hàm SendMessage.
 
 Để giải quyết điều này là thì sẽ cần tạo ra 1 interface là
 IMessager : Send
@@ -20,4 +20,4 @@ Khi đó class Invoice sẽ có hàm SetMessager(IMessager), và hàm Notify s�
 	IMessager.Send(message)
 }
 
-Như vậy khi cần thêm một kiểu thông báo khác bằng Phone thì sẽ không thay đổi source code đã có.
+Như vậy khi cần thêm một kiểu thông báo khác bằng Phone cũng sẽ dễ dàng và không thay đổi sourcecode ban đầu.
