@@ -1,0 +1,46 @@
+Tải dữ liệu từ data cache.
+
+Giúp tăng hiệu năng lấy dữ liệu.
+
+Khi lấy dữ liệu
+1. Kiểm tra nếu dữ liệu đã có trong cache thì trả về
+2. Nếu dữ liệu chưa có trong cache thì đọc từ data store
+3. Sao chép data vừa lấy vào trong cache
+
+Khi cập nhật dữ liệu
+1. Cập nhật dữ liệu vào trong data store
+2. Sao chép data vừa được cập nhật vào trong cache
+
+Một số issues
+1. Thời gian lưu trữ dữ liệu trong cache
+Thường kéo dài bằng phiên làm việc nếu là dữ liệu riêng
+Hoặc lâu hơn nếu là dữ liệu dùng chung
+
+2. Giới hạn kích thước của cache
+Khi cache bị đầy thì cần xóa bớt các dữ liệu cũ đi
+
+3. Tính nhất quán
+Dữ liệu trong data store có thể bị thay đổi bởi 1 tiến trình bên ngoài
+Khi đó dữ liệu trong cache sẽ không giống với dữ liệu trong data store
+
+4. Cache trong bộ nhớ
+Bộ nhớ địa phương là riêng tư, nên cache sẽ bị lặp lại nhiều lần
+Có thể cân nhắc việc sử dụng cơ chế Distributed cache
+
+Không sử dụng khi
+Dữ liệu cache là tĩnh.
+Dữ liệu là trạng thái sesion của web application.
+
+Code mẫu
+
+private static ConnectionMultiplexer Connection;
+
+// Redis connection string information
+private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
+{
+    string cacheConnection = ConfigurationManager.AppSettings["CacheConnection"].ToString();
+    return ConnectionMultiplexer.Connect(cacheConnection);
+});
+
+public static ConnectionMultiplexer Connection => lazyConnection.Value;
+
