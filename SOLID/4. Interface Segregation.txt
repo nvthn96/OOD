@@ -1,6 +1,5 @@
-Class không được chứa hàm mà nó không có.
-
-Ví dụ interface là IPrinter với methods: Print, Fax, Scan
+Class sẽ không được thực hiện các hành vi thừa từ giao diện.
+Vì vậy cần tách nhỏ thành các interface phù hợp.
 
 2 class là
 class HPrinter : IPrinter {
@@ -15,8 +14,10 @@ class JetPrinter : IPrinter {
 	Scan() { throw exception; }
 }
 
-Như vậy interface IPrinter đã vi phạm nguyên tắc vì có method mà class con không thực hiện được.
-Cần phải chia nhỏ interface thành
+Máy in JetPrinter không có chức năng Scan nhưng lại được thực hiện hàm Scan.
+
+Như vậy giao diện IPrinter cần được chia nhỏ thành 2 giao diện
+
 interface IPrinterTask: Print, Fax
 interface IPrinterExtend: Scan
 

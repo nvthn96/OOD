@@ -1,9 +1,21 @@
-Các class, function lên đóng cho việc chỉnh sửa, và mở cho việc mở rộng.
+Cần thiết kế để không phải sửa những code đã có, mà chỉ cần mở rộng thêm code mới.
 
-Với class Student: hàm là CalcFee
+Với class School và hàm GetFee để tính học phí.
 
-Khi có 1 kiểu học sinh mới là học sinh ngoại quốc thì sẽ không nên thay đổi hàm CalcFee,
-thay vào đó là tạo ra 1 class mới
-class ForeignStudent extend Student, sau đó ghi đè hàm tính CalcFee
+class School {
+    int GetFee() {
+        return NormalStudent.Fee
+    }
+}
 
-Như vậy class Student, và hàm CalcFee ban đầu sẽ không thay đổi.
+Khi muốn thêm 1 dạng học sinh mới, như học sinh ngoại quốc, thì hàm GetFee sẽ không hoạt động đúng.
+
+Cần chỉnh sửa lại thiết kế của hàm GetFee là
+
+class School {
+    int GetFee(StudentType) {
+        return StudentType.Fee
+    }
+}
+
+Như vậy thì nếu muốn thêm một dạng học sinh mới, sẽ không cần thay đổi hàm GetFee ban đầu.

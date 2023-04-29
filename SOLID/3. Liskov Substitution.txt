@@ -1,20 +1,16 @@
 Class con phải có hành vi giống class cha.
 
 Nếu có 2 class là
-class Duck: hàm Move để bơi
-class DuckToy extends Duck: hàm Move để đi trên mặt đất
+class Duck với hàm Move để bơi
+class DuckToy : Duck với hàm Move để đi trên mặt đất
 
-Nếu sử dụng Duck = new DuckToy() thì sẽ vi phạm nguyên tắc,
-vì hành vi đi trên mặt đất không giống hành vi bơi.
+Vì hành vi bơi và đi trên mặt đất là khác nhau, nên class DuckToy không thể là class con của class Duck.
 
-Như vậy, cần tạo ra 1 interface
-IDuck: Move
+Để giải quyết điều này, thì cần tạo 1 abstract class là
+abstract class Duck {
+    string Move()
+}
 
-Sau đó tạo 2 class Duck và DuckToy thực hiện interface này
-class Duck implement IDuck
-class DuckToy implement IDuck
-
-Khi đó, việc sử dụng là
-IDuck = new Duck()
-IDuck = new DuckToy()
-thì sẽ thỏa mãn yêu cầu.
+Sau đó tạo 2 class kế thừa class Duck
+class DuckLive extends Duck
+class DuckToy extends Duck

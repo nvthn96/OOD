@@ -1,23 +1,33 @@
-Lớp high-level không phụ thuộc vào lớp lown-level.
+Sử dụng các giao diện để giảm phụ thuộc vào các class cố định.
 
-Ví dụ class Invoice với hàm SendMessage là {
-	SMS.Send(message);
+Ví dụ class Invoice với hàm SendMessage là
+
+class Invoice {
+	bool SendMessage() {
+		SMS.Send(message)
+	}
 }
 
-class SMS
-class Email
+Như vậy, class Invoice đã bị phụ thuộc vào 1 class cố định là SMS.
 
-Như vậy, class Invoice đã bị phụ thuộc vào 1 class khác là SMS.
-Nếu muốn sử dụng bằng Email thì sẽ phải thay đổi từ SMS sang Email trong hàm SendMessage.
+Nếu muốn sử dụng bằng Email thì sẽ phải thay đổi từ SMS sang Email.
 
 Để giải quyết điều này là thì sẽ cần tạo ra 1 interface là
+
 IMessager : Send
+
+Khi đó class Invoice sẽ là
+
+class Invoice {
+	bool SendMessage(IMessager) {
+		IMessager.Send(message)
+	}
+}
+
+Nếu cần thêm SMS hoặc Email hoặc Phone thì sẽ là
 
 class SMS : IMessager
 class Email : IMessager
+class Phone : IMessager
 
-Khi đó class Invoice sẽ có hàm SetMessager(IMessager), và hàm Notify sẽ là {
-	IMessager.Send(message)
-}
-
-Như vậy khi cần thêm một kiểu thông báo khác bằng Phone cũng sẽ dễ dàng và không thay đổi sourcecode ban đầu.
+Như vậy sẽ cần không thay đổi sourcecode ban đầu.

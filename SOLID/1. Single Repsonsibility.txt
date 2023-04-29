@@ -1,8 +1,10 @@
-Mỗi class chỉ lên có 1 lý do duy nhất để thay đổi.
+Mỗi class chỉ có các hành vi tương tự nhau.
 
-Ví dụ class Invoice với methods là: AddInvoice, DeleteInvoice, SendEmail
+Ví dụ class Invoice với hàm là: AddInvoice, DeleteInvoice, SendEmail
 
-Khi đó class trên đã vi phạm nguyên tắc, và cần tách ra thành 2 class là
+Class trên vừa xử lý Invoice, vừa xử lý Email là cách hành vi không giống nhau.
+
+Lên tách thành 2 class
 
 Class Invoice: AddInvoice, DeleteInvoice
 Class Email: SendEmail
