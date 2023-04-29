@@ -1,0 +1,24 @@
+Lớp con sẽ có tất cả thuộc tính của lớp cha.
+
+Lớp cha là
+
+class Person {
+    string Name
+    int Age
+
+    string GetDisplayInformation()
+}
+
+Lớp con là
+
+class Worker : Person {
+    string Business
+
+    string GetBussiness()
+}
+
+Tạo ra một Worker
+
+var Alex = new Worker()
+
+Như vậy Alex sẽ có những thuộc tính của Person, và của Worker.

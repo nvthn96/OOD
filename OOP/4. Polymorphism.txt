@@ -1,0 +1,36 @@
+Class có thể được sử dụng theo những giao diện khác nhau.
+
+Có 2 giao diện là
+
+interface IPlayer {
+    string Swim()
+    string Run()
+}
+
+interface IWorker {
+    string Working()
+}
+
+Một class kế thừa 2 giao diện trên
+
+class Person : IPlayer, IWorker {
+    string Name
+
+    string Swim()
+    string Run()
+    string Working()
+}
+
+Tạo ra một Person
+
+var Alex = new Person()
+
+Khi đó Alex sẽ có các thuộc tính Name, và 3 hoạt động Swim, Run, và Working.
+
+Sử dụng tính đa hình bằng cách
+
+IPlayer AlexPlayer = (IPlayer) Alex;
+IWorker AlexWorker = (IWorker) Alex;
+
+Cùng là Alex nhưng nếu sử dụng giao diện IPlayer, sẽ có AlexPlayer
+Và sử dụng giao diện IWorker, sẽ có AlexWorker

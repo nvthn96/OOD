@@ -1,0 +1,10 @@
+Mỗi thành phần của hệ thống sẽ được tạo thành một Class.
+
+Class sẽ có thuộc tính và hàm.
+
+class Person {
+    string Name
+    int Age
+
+    string GetDisplayInformation()
+}

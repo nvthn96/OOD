@@ -1,0 +1,17 @@
+Thông tin được tổng hợp lại và có thể tái sử dụng.
+
+class Person {
+    string Name
+    int Age
+
+    string GetDisplayInformation()
+}
+
+Person gồm có thông tin về tên, tuổi và hàm hiển thị thông tin của người đó.
+
+Tạo ra 2 Person
+
+var Hoang = new Person()
+var Lam = new Person()
+
+Hoang và Lam sẽ có các thuộc tính và hàm giống như của Person.

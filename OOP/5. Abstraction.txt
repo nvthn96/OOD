@@ -1,0 +1,20 @@
+Một class chưa hoàn chỉnh được sử dụng như một giao diện.
+
+abstract class Person {
+    string Name
+    int Age
+
+    abstract string GetDisplayInformation()
+}
+
+Hàm GetDisplayInformation không có code lên không thể chạy trực tiếp từ class Person.
+
+Thay vào đó, cần tạo một class con kế thừa class Person
+
+class Player : Person {
+    string GetDisplayInformation()
+}
+
+Khi đó, có thể tạo một Player với giao diện là Person
+
+Person Alex = new Player()
